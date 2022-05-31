@@ -1,5 +1,4 @@
 import './main.css'
 
-import 'bootstrap'
+import 'bootstrap';
 
-console.log(123);
