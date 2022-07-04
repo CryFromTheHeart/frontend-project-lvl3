@@ -33,10 +33,12 @@
     "webpack-dev-server": "^4.1.1"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.0-beta1",
     "html-webpack-plugin": "^5.5.0",
     "i18next": "^21.8.11",
     "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
     "on-change": "^4.0.1",
     "popper.js": "^1.16.1",
     "sass": "^1.52.1",

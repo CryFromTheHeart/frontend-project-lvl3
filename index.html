@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Пример веб-страницы</title>
+  <title>RSS агрегатор</title>
 </head>
 
 <body>
@@ -24,8 +24,14 @@
           </div>
         </form>
         <p class="mt-2 mb-0 text-muted">Пример: https://ru.hexlet.io/lessons.rss</p>
-        <p class="feedback m-0 position-absolute small text-danger"></p>
+        <p class="feedback m-0 position-absolute small text-success"></p>
       </div>
+    </div>
+  </section>
+  <section class="container-fluid container-xxl p-5">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 order-1 mx-auto posts"></div>
+      <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds"></div>
     </div>
   </section>
 </body>
