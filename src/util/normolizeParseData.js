@@ -13,7 +13,9 @@ export default (html) => {
     const description = item.querySelector('description').textContent;
     const link = item.querySelector('link').textContent;
 
-    return { id: _.uniqueId(), title, description, link };
+    return {
+      id: _.uniqueId(), title, description, link,
+    };
   });
   return { items, feed };
 };

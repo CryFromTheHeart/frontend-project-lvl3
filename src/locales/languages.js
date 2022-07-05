@@ -1,4 +1,4 @@
-export const ru = {
+export default {
   translation: {
     validation: {
       url: 'Ссылка должна быть валидным URL',

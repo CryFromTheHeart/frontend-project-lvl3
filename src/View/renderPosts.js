@@ -37,24 +37,35 @@ const createPostsSection = (i18nInstance) => {
   return postsCard;
 };
 
-export default (items, i18nInstance) => {
+export default (state, i18nInstance) => {
+  const items = state.feedItems;
   const container = createPostsSection(i18nInstance);
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
   items.forEach((item) => {
     const li = document.createElement('li');
+    const font = state.uiState.openedIds.find(
+      (openlink) => openlink === item.id,
+    )
+      ? 'fw-normal'
+      : 'fw-bold';
+
     li.classList.add(
       'list-group-item',
       'd-flex',
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0'
+      'border-end-0',
+      font,
     );
 
     const a = createA(item);
     const button = createButton(item, i18nInstance);
+    button.addEventListener('click', () => {
+      state.uiState.openedIds.push(item.id);
+    });
 
     li.append(a);
     li.append(button);

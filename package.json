@@ -34,7 +34,9 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "babel-loader": "^8.2.5",
     "bootstrap": "^5.2.0-beta1",
+    "eslint-plugin-jest": "^26.5.3",
     "html-webpack-plugin": "^5.5.0",
     "i18next": "^21.8.11",
     "jquery": "^3.6.0",

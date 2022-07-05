@@ -1,7 +1,7 @@
-import routes from '../util/routes.js';
 import axios from 'axios';
-import parser from '../parsers/parser.js';
 import _ from 'lodash';
+import routes from '../util/routes.js';
+import parser from '../parsers/parser.js';
 import normolizeParseData from '../util/normolizeParseData.js';
 
 const updatePost = (state) => {

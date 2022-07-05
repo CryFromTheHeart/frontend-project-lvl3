@@ -1,12 +1,13 @@
-import handlerSubmitForm from './handlers/handlerSubmitForm.js';
 import onChange from 'on-change';
-import renderErrors from './View/renderErrors.js';
 import i18next from 'i18next';
+import handlerSubmitForm from './handlers/handlerSubmitForm.js';
+import renderErrors from './View/renderErrors.js';
 import resources from './locales/index.js';
-import renderItems from './View/renderPosts.js';
+import renderPosts from './View/renderPosts.js';
 import renderFeeds from './View/renderFeeds.js';
 import renderSuccessFeedback from './View/renderSuccessFeedback.js';
 import updatePost from './handlers/handlerUpdatePosts.js';
+import renderModal from './View/renderModal.js';
 
 const runApp = () => {
   const state = {
@@ -15,6 +16,9 @@ const runApp = () => {
     feedLinks: [],
     feeds: [],
     errors: [],
+    uiState: {
+      openedIds: [],
+    },
   };
 
   const uiElements = {
@@ -33,7 +37,7 @@ const runApp = () => {
     if (path === 'status') {
       switch (value) {
         case 'loaded': {
-          renderItems(state.feedItems, i18nInstance);
+          renderPosts(watchedState, i18nInstance);
           renderFeeds(state.feeds, i18nInstance);
           renderSuccessFeedback(uiElements, i18nInstance);
           break;
@@ -47,8 +51,12 @@ const runApp = () => {
           throw new Error('Unknown state');
       }
     }
+    if (path === 'uiState.openedIds') {
+      renderPosts(watchedState, i18nInstance);
+      renderModal(state);
+    }
     if (path === 'feedItems') {
-      renderItems(state.feedItems, i18nInstance);
+      renderPosts(watchedState, i18nInstance);
     }
   });
 
