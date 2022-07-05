@@ -8,5 +8,4 @@
 
 ### About:
 
-Feed aggregator, which collect RSS feeds and then watches for new posts.
 [Click here to see an example !](https://frontend-project-lvl3-mu-ten.vercel.app)
