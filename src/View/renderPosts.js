@@ -54,7 +54,7 @@ export default (state, i18nInstance) => {
 
   items.forEach((item) => {
     const font = state.uiState.openedIds.find(
-      (openlink) => openlink === item.id
+      (openlink) => openlink === item.id,
     )
       ? 'fw-normal'
       : 'fw-bold';
@@ -65,7 +65,7 @@ export default (state, i18nInstance) => {
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0'
+      'border-end-0',
     );
 
     const a = createA(item, font);
