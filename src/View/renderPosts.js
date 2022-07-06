@@ -41,10 +41,10 @@ const createPostsSection = (i18nInstance) => {
 export default (state, i18nInstance) => {
   const items = state.feedItems.sort((a, b) => {
     if (a.title < b.title) {
-      return 1;
+      return -1;
     }
     if (a.title > b.title) {
-      return -1;
+      return 1;
     }
     return 0;
   });
