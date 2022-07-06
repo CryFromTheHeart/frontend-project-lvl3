@@ -39,7 +39,15 @@ const createPostsSection = (i18nInstance) => {
 };
 
 export default (state, i18nInstance) => {
-  const items = state.feedItems;
+  const items = state.feedItems.sort((a, b) => {
+    if (a.title < b.title) {
+      return 1;
+    }
+    if (a.title > b.title) {
+      return -1;
+    }
+    return 0;
+  });
   const container = createPostsSection(i18nInstance);
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'border-0', 'rounded-0');

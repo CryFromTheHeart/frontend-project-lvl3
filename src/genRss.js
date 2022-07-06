@@ -11,7 +11,7 @@ export default (state, url, i18nInstance) => {
       const { items, feed } = normolizeParseData(html);
 
       state.feeds = state.feeds.concat(feed);
-      state.feedItems = state.feedItems.concat(items).sort();
+      state.feedItems = state.feedItems.concat(items);
       state.feedLinks.push(url);
 
       state.status = 'loaded';
