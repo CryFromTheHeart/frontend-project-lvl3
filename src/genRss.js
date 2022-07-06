@@ -3,7 +3,7 @@ import routes from './util/routes.js';
 import parser from './parsers/parser.js';
 import normolizeParseData from './util/normolizeParseData.js';
 
-export default (state, url) => {
+export default (state, url, i18nInstance) => {
   axios
     .get(routes.getCacheDisableRoutes(url))
     .then((response) => {
@@ -16,8 +16,12 @@ export default (state, url) => {
 
       state.status = 'loaded';
     })
-    .catch(() => {
-      state.errors.push(['Ресурс не содержит валидный RSS']);
+    .catch((e) => {
+      if (e.name === 'AxiosError') {
+        state.errors.push(i18nInstance.t('errors.networkError'));
+      } else {
+        state.errors.push(i18nInstance.t('errors.invalidRSS'));
+      }
       state.status = 'failed';
     });
 };

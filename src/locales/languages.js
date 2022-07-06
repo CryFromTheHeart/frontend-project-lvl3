@@ -4,6 +4,10 @@ export default {
       url: 'Ссылка должна быть валидным URL',
       notOneOf: 'RSS уже существует',
     },
+    errors: {
+      networkError: 'Ошибка сети',
+      invalidRSS: 'Ресурс не содержит валидный RSS',
+    },
     form: {
       successLoad: 'RSS успешно загружен',
     },

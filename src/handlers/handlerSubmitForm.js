@@ -17,7 +17,7 @@ const handlerSubmitForm = (state, url, i18nInstance) => {
   formSchema
     .validate(url)
     .then(() => {
-      genRss(state, url);
+      genRss(state, url, i18nInstance);
     })
     .catch((e) => {
       state.errors.push(e.errors);
