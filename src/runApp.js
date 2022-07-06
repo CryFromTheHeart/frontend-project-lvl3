@@ -8,6 +8,8 @@ import renderFeeds from './View/renderFeeds.js';
 import renderSuccessFeedback from './View/renderSuccessFeedback.js';
 import updatePost from './handlers/handlerUpdatePosts.js';
 import renderModal from './View/renderModal.js';
+import renderClearForm from './View/renderClearForm.js';
+import renderBlockBtnsInpts from './View/renderBlockBtnsInpts.js';
 
 const runApp = () => {
   const state = {
@@ -24,6 +26,7 @@ const runApp = () => {
   const uiElements = {
     form: document.querySelector('.rss-form'),
     input: document.querySelector('#url-input'),
+    button: document.querySelector('button[type="submit"]'),
   };
 
   const i18nInstance = i18next.createInstance();
@@ -34,9 +37,11 @@ const runApp = () => {
   });
 
   const watchedState = onChange(state, (path, value) => {
+    renderBlockBtnsInpts('enable', uiElements);
     if (path === 'status') {
       switch (value) {
         case 'loaded': {
+          renderClearForm(uiElements);
           renderPosts(watchedState, i18nInstance);
           renderFeeds(state.feeds, i18nInstance);
           renderSuccessFeedback(uiElements, i18nInstance);
@@ -46,6 +51,7 @@ const runApp = () => {
           renderErrors(state, uiElements);
           break;
         case 'loading':
+          renderBlockBtnsInpts('disabled', uiElements);
           break;
         default:
           throw new Error('Unknown state');
