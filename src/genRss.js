@@ -19,7 +19,8 @@ export default (state, url, i18nInstance) => {
     .catch((e) => {
       if (e.name === 'AxiosError') {
         state.errors.push(i18nInstance.t('errors.networkError'));
-      } else {
+      }
+      if (e.name === 'TypeError') {
         state.errors.push(i18nInstance.t('errors.invalidRSS'));
       }
       state.status = 'failed';
