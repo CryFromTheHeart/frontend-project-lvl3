@@ -1,9 +1,10 @@
-const createA = (item) => {
+const createA = (item, font) => {
   const postLink = document.createElement('a');
   postLink.setAttribute('href', item.link);
   postLink.setAttribute('target', '_blank');
   postLink.setAttribute('data-id', item.id);
   postLink.setAttribute('rel', 'noopener noreferrer');
+  postLink.classList.add(font);
   postLink.textContent = item.title;
   return postLink;
 };
@@ -44,24 +45,22 @@ export default (state, i18nInstance) => {
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
   items.forEach((item) => {
-    const li = document.createElement('li');
     const font = state.uiState.openedIds.find(
-      (openlink) => openlink === item.id,
+      (openlink) => openlink === item.id
     )
       ? 'fw-normal'
       : 'fw-bold';
-
+    const li = document.createElement('li');
     li.classList.add(
       'list-group-item',
       'd-flex',
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0',
-      font,
+      'border-end-0'
     );
 
-    const a = createA(item);
+    const a = createA(item, font);
     const button = createButton(item, i18nInstance);
     button.addEventListener('click', () => {
       state.uiState.openedIds.push(item.id);
