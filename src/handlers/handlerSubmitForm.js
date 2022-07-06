@@ -23,8 +23,6 @@ const handlerSubmitForm = (state, url, i18nInstance) => {
       state.errors.push(e.errors);
       state.status = 'failed';
     });
-
-  console.log(state.errors);
 };
 
 export default handlerSubmitForm;

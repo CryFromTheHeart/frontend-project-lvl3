@@ -25,7 +25,6 @@ export default (feeds, i18nInstance) => {
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
   feeds.forEach((feed) => {
-    console.log(feed);
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'border-0', 'rounded-0');
 
