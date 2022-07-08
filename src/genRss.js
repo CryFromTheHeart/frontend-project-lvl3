@@ -1,6 +1,6 @@
 import axios from 'axios';
-import routes from './util/routes.js';
-import parser from './parsers/parser.js';
+import routes from './routes.js';
+import parser from './parser.js';
 
 export default (state, url, i18nInstance) => {
   axios

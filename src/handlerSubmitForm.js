@@ -1,5 +1,5 @@
 import { string, setLocale } from 'yup';
-import genRss from '../genRss.js';
+import genRss from './genRss.js';
 
 const handlerSubmitForm = (state, url, i18nInstance) => {
   state.status = 'loading';

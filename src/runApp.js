@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-import handlerSubmitForm from './handlers/handlerSubmitForm.js';
+import handlerSubmitForm from './handlerSubmitForm.js';
 import {
   choseRender,
   renderPosts,
@@ -9,7 +9,7 @@ import {
 } from './view.js';
 import resources from './locales/index.js';
 
-import updatePost from './handlers/handlerUpdatePosts.js';
+import updatePost from './handlerUpdatePosts.js';
 
 const runApp = () => {
   const state = {

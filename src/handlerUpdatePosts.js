@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
-import routes from '../util/routes.js';
-import parser from '../parsers/parser.js';
+import routes from './routes.js';
+import parser from './parser.js';
 
 const updatePost = (state) => {
   state.feedLinks.forEach((link) => {
