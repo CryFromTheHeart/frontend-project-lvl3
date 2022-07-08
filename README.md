@@ -9,3 +9,25 @@
 ### About:
 
 [Click here to see an example !](https://frontend-project-lvl3-mu-ten.vercel.app)
+
+### Description:
+
+This is a simple RSS-reader application
+
+### How to use it:
+
+Simply copy and paste in the textbox a link with RSS. Then click 'Add' or Enter - and see the feeds and posts you added.
+
+### To run locally on your machine:
+
+#### install dependencies and let your system run the package
+
+`make install`
+
+#### build the webpack
+
+`make build`
+
+#### run the webpack on localhost
+
+`make start`

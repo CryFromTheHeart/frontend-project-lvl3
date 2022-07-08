@@ -1,14 +1,12 @@
 import axios from 'axios';
 import routes from './util/routes.js';
 import parser from './parsers/parser.js';
-import normolizeParseData from './util/normolizeParseData.js';
 
 export default (state, url, i18nInstance) => {
   axios
     .get(routes.getCacheDisableRoutes(url))
     .then((response) => {
-      const html = parser(response.data.contents);
-      const { items, feed } = normolizeParseData(html);
+      const { items, feed } = parser(response.data.contents);
 
       state.feeds = state.feeds.concat(feed);
       state.feedItems = state.feedItems.concat(items);
