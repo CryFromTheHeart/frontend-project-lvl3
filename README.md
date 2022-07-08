@@ -24,10 +24,6 @@ Simply copy and paste in the textbox a link with RSS. Then click 'Add' or Enter 
 
 `make install`
 
-#### build the webpack
-
-`make build`
-
 #### run the webpack on localhost
 
 `make start`
