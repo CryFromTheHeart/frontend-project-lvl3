@@ -1,5 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
+import { setLocale } from 'yup';
 import handlerSubmitForm from './handlerSubmitForm.js';
 import {
   choseRender,
@@ -37,6 +38,14 @@ const runApp = () => {
       resources,
     })
     .then(() => {
+      setLocale({
+        mixed: {
+          notOneOf: () => 'validation.notOneOf',
+        },
+        string: {
+          url: () => 'validation.url',
+        },
+      });
       const watchedState = onChange(state, (path, value) => {
         renderBlockButtons('enable', uiElements);
         switch (path) {
@@ -64,6 +73,13 @@ const runApp = () => {
         handlerSubmitForm(watchedState, url, i18nInstance);
       });
 
+      const postsContainer = document.querySelector('.posts');
+      postsContainer.addEventListener('click', ({ target }) => {
+        console.log(target);
+        const id = target.dataset.bsPostid;
+        if (!id) return;
+        watchedState.uiState.openedIds.push(id);
+      });
       updatePost(watchedState);
     });
 };

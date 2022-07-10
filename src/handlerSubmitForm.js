@@ -1,16 +1,8 @@
-import { string, setLocale } from 'yup';
+import { string } from 'yup';
 import genRss from './genRss.js';
 
 const handlerSubmitForm = (state, url, i18nInstance) => {
   state.status = 'loading';
-  setLocale({
-    mixed: {
-      notOneOf: () => i18nInstance.t('validation.notOneOf'),
-    },
-    string: {
-      url: () => i18nInstance.t('validation.url'),
-    },
-  });
 
   const formSchema = string().notOneOf(state.feedLinks).url();
 

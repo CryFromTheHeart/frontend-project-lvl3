@@ -14,12 +14,12 @@ export const renderBlockButtons = (status, uiElements) => {
   mapping[status](button, input);
 };
 
-export const renderErrors = (state, uiElements) => {
+export const renderErrors = (state, uiElements, i18nInstance) => {
   const prevFeedback = document.querySelector('.feedback');
   prevFeedback.classList.add('text-danger');
   uiElements.input.classList.add('is-invalid');
   const text = state.errors[state.errors.length - 1];
-  prevFeedback.textContent = text;
+  prevFeedback.textContent = i18nInstance.t(text);
 };
 
 export const renderClearForm = (uiElements) => {
@@ -32,6 +32,7 @@ const createA = (item, font) => {
   postLink.setAttribute('href', item.link);
   postLink.setAttribute('target', '_blank');
   postLink.setAttribute('data-id', item.id);
+  postLink.dataset.bsPostid = item.id;
   postLink.setAttribute('rel', 'noopener noreferrer');
   postLink.classList.add(font);
   postLink.textContent = item.title;
@@ -43,6 +44,7 @@ const createButton = (item, i18nInstance) => {
   viewButton.classList.add('btn', 'btn-outline-primary', 'btn-sm');
   viewButton.setAttribute('type', 'button');
   viewButton.setAttribute('data-id', item.id);
+  viewButton.dataset.bsPostid = item.id;
   viewButton.setAttribute('data-bs-toggle', 'modal');
   viewButton.setAttribute('data-bs-target', '#modal');
   viewButton.textContent = i18nInstance.t('posts.button');
@@ -83,7 +85,7 @@ export const renderPosts = (state, i18nInstance) => {
 
   items.forEach((item) => {
     const font = state.uiState.openedIds.find(
-      (openlink) => openlink === item.id,
+      (openlink) => openlink === item.id
     )
       ? 'fw-normal'
       : 'fw-bold';
@@ -94,14 +96,11 @@ export const renderPosts = (state, i18nInstance) => {
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0',
+      'border-end-0'
     );
 
     const a = createA(item, font);
     const button = createButton(item, i18nInstance);
-    button.addEventListener('click', () => {
-      state.uiState.openedIds.push(item.id);
-    });
 
     li.append(a);
     li.append(button);
@@ -191,7 +190,7 @@ export const choseRender = (value, i18nInstance, watchedState, uiElements) => {
       break;
     }
     case 'failed':
-      renderErrors(watchedState, uiElements);
+      renderErrors(watchedState, uiElements, i18nInstance);
       break;
     case 'loading':
       renderBlockButtons('disabled', uiElements);

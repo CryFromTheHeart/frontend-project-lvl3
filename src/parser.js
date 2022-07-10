@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default (data) => {
   const parser = new DOMParser();
   const xml = parser.parseFromString(data, 'text/xml');
@@ -16,11 +14,10 @@ export default (data) => {
     const link = item.querySelector('link').textContent;
 
     return {
-      id: _.uniqueId(),
       title,
       description,
       link,
     };
   });
-  return { items, feed };
+  return { rawItems: items, feed };
 };

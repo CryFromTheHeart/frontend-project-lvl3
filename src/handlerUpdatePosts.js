@@ -4,18 +4,23 @@ import routes from './routes.js';
 import parser from './parser.js';
 
 const updatePost = (state) => {
-  state.feedLinks.forEach((link) => {
-    axios.get(routes.getCacheDisableRoutes(link)).then((response) => {
-      const { items } = parser(response.data.contents);
-      const newRawItems = _.union(items, state.feedItems);
-      const newItems = _.differenceBy(newRawItems, state.feedItems, 'link');
-
-      state.feedItems = [...newItems, ...state.feedItems];
-    });
+  const coll = state.feedLinks.map((link) => {
+    const axiosPromise = axios
+      .get(routes.getCacheDisableRoutes(link))
+      .then((response) => {
+        const { rawItems } = parser(response.data.contents);
+        const items = rawItems.map((item) => ({ id: _.uniqueId(), ...item }));
+        const newItems = _.differenceBy(items, state.feedItems, 'link');
+        state.feedItems = [...newItems, ...state.feedItems];
+      });
+    return axiosPromise;
   });
-  setTimeout(() => {
-    updatePost(state);
-  }, 5000);
+
+  Promise.all(coll).then(() => {
+    setTimeout(() => {
+      updatePost(state);
+    }, 5000);
+  });
 };
 
 export default updatePost;
