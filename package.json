@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "webpack": "npx webpack serve",
+    "build": "npx webpack build",
     "test": "jest"
   },
   "repository": {
