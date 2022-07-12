@@ -9,9 +9,11 @@ const updatePost = (state) => {
       .get(routes.getCacheDisableRoutes(link))
       .then((response) => {
         const { rawItems } = parser(response.data.contents);
-        const items = rawItems.map((item) => ({ id: _.uniqueId(), ...item }));
-        const newItems = _.differenceBy(items, state.feedItems, 'link');
-        state.feedItems = [...newItems, ...state.feedItems];
+        const newItems = _.differenceBy(rawItems, state.feedItems, 'link');
+        state.feedItems = [
+          ...newItems.map((item) => ({ id: _.uniqueId(), ...item })),
+          ...state.feedItems,
+        ];
       });
     return axiosPromise;
   });
