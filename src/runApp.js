@@ -1,7 +1,8 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-import { setLocale } from 'yup';
-import handlerSubmitForm from './handlerSubmitForm.js';
+import { setLocale, string } from 'yup';
+import axios from 'axios';
+import _ from 'lodash';
 import {
   choseRender,
   renderPosts,
@@ -9,8 +10,52 @@ import {
   renderBlockButtons,
 } from './view.js';
 import resources from './locales/index.js';
+import genRss from './genRss.js';
+import routes from './routes.js';
+import parser from './parser.js';
 
-import updatePost from './handlerUpdatePosts.js';
+const updatePost = (state) => {
+  const coll = state.feedLinks.map((link) => {
+    const axiosPromise = axios
+      .get(routes.getCacheDisableRoutes(link))
+      .then((response) => {
+        const { rawItems } = parser(response.data.contents);
+        const newItems = _.differenceBy(rawItems, state.feedItems, 'link');
+        state.feedItems = [
+          ...newItems.map((item) => ({ id: _.uniqueId(), ...item })),
+          ...state.feedItems,
+        ];
+      });
+    return axiosPromise;
+  });
+
+  Promise.all(coll).then(() => {
+    setTimeout(() => {
+      updatePost(state);
+    }, 5000);
+  });
+};
+
+const handlerSubmitForm = (state, url, i18nInstance) => {
+  state.status = 'loading';
+
+  const formSchema = string().notOneOf(state.feedLinks).url();
+
+  formSchema
+    .validate(url)
+    .then(() => genRss(state, url, i18nInstance))
+    .catch((e) => {
+      console.log(e);
+      if (e.name === 'AxiosError') {
+        state.errors.push('errors.networkError');
+      } else if (e.name === 'TypeError') {
+        state.errors.push('errors.invalidRSS');
+      } else {
+        state.errors.push(e.errors);
+      }
+      state.status = 'failed';
+    });
+};
 
 const runApp = () => {
   const state = {
